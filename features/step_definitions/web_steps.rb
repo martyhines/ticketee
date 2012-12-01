@@ -32,13 +32,13 @@ end
 World(WithinHelpers)
 
 # Single-line step scoper
-When /^(.*) within (.*[^:])$/ do |step, parent|
-  with_scope(parent) { When step }
+When /^(.*) within (.*[^:])$/ do |the_step, parent|
+  with_scope(parent) { step the_step }
 end
 
 # Multi-line step scoper
-When /^(.*) within (.*[^:]):$/ do |step, parent, table_or_string|
-  with_scope(parent) { When "#{step}:", table_or_string }
+When /^(.*) within (.*[^:]):$/ do |the_step, parent, table_or_string|
+  with_scope(parent) { step "#{the_step}:", table_or_string }
 end
 
 Given /^(?:|I )am on (.+)$/ do |page_name|
@@ -215,6 +215,11 @@ Then /^the "([^"]*)" checkbox(?: within (.*))? should be checked$/ do |label, pa
     end
   end
 end
+
+# Then /^I should be on the page with the title: "([^"]*)"$/ do |page_title|
+#   response.should have_xpath('//title', :text => "#{page_title}")
+# end
+
 
 Then /^the "([^"]*)" checkbox(?: within (.*))? should not be checked$/ do |label, parent|
   with_scope(parent) do
